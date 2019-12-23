@@ -17,7 +17,7 @@ public class Comment {
 	public Comment() {
 
 	}
-
+//novy komentar
 	public Comment(String username, String game, String content) {
 		this.username = username;
 		this.game = game;
