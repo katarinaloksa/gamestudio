@@ -25,7 +25,9 @@ import sk.tsystems.gamestudio.service.ScoreService;
 @Scope(WebApplicationContext.SCOPE_SESSION)
 public class PuzzleController {
 	private Field field;
-
+	private int score;
+	private long startMillis; 
+	
 	@Autowired
 	private ScoreService scoreService;
 
@@ -41,6 +43,7 @@ public class PuzzleController {
 	@RequestMapping("/puzzle")
 	public String index() {
 		field = new Field(4, 4);
+		startMillis = System.currentTimeMillis();
 		return "puzzle";
 	}
 
@@ -62,7 +65,7 @@ public class PuzzleController {
 	public String move(int tile) {
 		field.move(tile);
 		if (field.isState() && mainController.isLogged()) {
-			scoreService.addScore(new Score(mainController.getLoggedPlayer().getName(), "puzzle", 10));
+			scoreService.addScore(new Score(mainController.getLoggedPlayer().getName(), "puzzle", getScore()));
 		} // field.getScore()
 		return "puzzle";
 	}
@@ -95,6 +98,15 @@ public class PuzzleController {
 
 	public List<Score> getScores() {
 		return scoreService.getTopScores("puzzle");
+	}
+	
+	public int getPlayingTime() {
+		return (int) (System.currentTimeMillis() - startMillis) / 1000;
+	}
+
+	public int getScore() {
+		 score = 10000 - getPlayingTime();
+		 return score;
 	}
 
 	public List<Comment> getComments() {

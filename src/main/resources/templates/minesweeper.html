@@ -13,18 +13,96 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="/minesweeper.css">
+<link rel="stylesheet" href="/css/minesweeper/minesweeper.css">
 <title>Minesweeper</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Minesweeper</h1>
-	<a href="/minesweeper">New game</a>
-	<br />
-	<a href="/minesweeper/change">Click here to change mark/open</a>
-	<br />
-	<span th:if="${@minesweeperController.marking}">MARKING</span>
-	<span th:if="${not@minesweeperController.marking}">OPENING</span>
-	<div th:utext="${@minesweeperController.htmlField}" /></div>
+
+	<div class="container">
+		<div class="row minesweeper">
+		<section class="col-2 log">
+			<div th:if="${not @mainController.logged}">
+				You are not logged. Please, <a href="/">log in.</a></div>
+				<div th:if="${@mainController.logged}">
+				You are logged as <span th:text="${@mainController.loggedPlayer.name}"></span>
+			</div>
+		</section>
+		<section class="col-8 game">
+			<h1 class="text-center">Minesweeper</h1>
+			<div class="text-center"><a href="/minesweeper">New game</a></div>
+			<br/>
+			<div class="text-center"><a href="/minesweeper/change">Click here to change mark/open</a></div>
+			<br/>
+		</section>
+		<section class="col-2 menu">
+			<p>Back to <a href="/">main page.</a></p>
+		</section>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row field">
+			<div class="center"><div th:if="${not @minesweeperController.solved}">
+				<span th:if="${@minesweeperController.marking}">MARKING</span>
+				<span th:if="${not@minesweeperController.marking}">OPENING</span>
+				<div th:utext="${@minesweeperController.htmlField}"></div></div>
+			<div th:if="${@minesweeperController.solved}">
+			You won the game!<br/></div></div>
+	</div>
+	</div>
+	<div class="container">
+		<div class="row foot">
+			<section class="col-4 score">
+				<div th:if="${not @mainController.logged}">
+				If you want to store your score, you must to be logged. <a href="/">Log in.</a></div>
+				<h3>Scores</h3><div th:if="${not @mainController.logged}">
+				<ol>
+					<li th:each="score : ${@minesweeperController.scores}">
+						<span th:text="${score.username}"></span>
+						<span th:text="${score.value}"></span>
+						<span th:text="${score.game}"></span>
+					</li>
+				</ol>
+			</section>
+			<section class="col-4 comments">
+				<div th:if="${not @mainController.logged}">
+				If you want to leave a comment, you must to be logged. <a href="/">Log in.</a></div>
+				<h3>Comments</h3>
+				<ol>
+					<li th:each="comment : ${@minesweeperController.comments}">
+						<span th:text="${comment.username}"></span>
+						<span th:text="${comment.game}"></span>
+						<span th:text="${comment.content}"></span>
+					</li>
+				</ol>
+				<div th:if="${@mainController.logged}">
+					<form action="/minesweeper/comment">
+						<div class="form-group">
+			   			<input type="text" name="content" class="form-control">
+		  				</div>
+		  				<button type="submit" class="btn btn-outline-secondary">Add</button>
+     				</form>
+     			</div>
+     		</section>
+     		<section class="col-4 rating">
+     			<div th:if="${not @mainController.logged}">
+					Do you want to rate a game? You must to be logged. <a href="/">Log in.</a></div>
+				<h3>Rating</h3>
+				<div th:text="${@minesweeperController.averageRating}"></div>
+				<div th:if="${@mainController.logged}">
+					<form action="/minesweeper/rate">
+						<div class="form-group">
+							<input type="radio" name="rating" id="1" value="1"><label for="1">1</label>
+							<input type="radio" name="rating" id="2" value="2"><label for="2">2</label>
+							<input type="radio" name="rating" id="3" value="3"><label for="3">3</label>
+							<input type="radio" name="rating" id="4" value="4"><label for="4">4</label>
+							<input type="radio" name="rating" id="5" value="5"><label for="5">5</label>
+		  					<button type="submit" class="btn btn-outline-secondary">Rate</button>
+		  				</div>
+     				</form>
+     			</div>
+     		</section>
+     		</div>
+     		</div>
 </body>
 </html>

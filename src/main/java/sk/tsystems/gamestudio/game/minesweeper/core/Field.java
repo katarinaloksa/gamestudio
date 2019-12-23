@@ -55,6 +55,7 @@ public class Field {
 		tiles = new Tile[rowCount][columnCount];
 		tilesCount = columnCount * rowCount;
 		// generate the field content
+		startMillis = System.currentTimeMillis();
 		generate();
 	}
 
@@ -233,12 +234,14 @@ public class Field {
 		return tiles[row][column];
 	}
 	
+	public int getPlayingTime() {
+		return (int) (System.currentTimeMillis() - startMillis) / 1000;
+	}
+	
 	public int getScore() {
-        if (state == GameState.PLAYING) {
-            int seconds = (int) ((System.currentTimeMillis() - startMillis) / 1000);
-            score = rowCount * columnCount * 10;
+        if (state == GameState.SOLVED) {
+            score = rowCount * columnCount * 100 - getPlayingTime();
+            }
             return score;
         }
-        return score;
-    }
 }

@@ -10,8 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
+import sk.tsystems.gamestudio.entity.Comment;
+import sk.tsystems.gamestudio.entity.Rating;
 import sk.tsystems.gamestudio.entity.Score;
 import sk.tsystems.gamestudio.game.guessnumber.main.GuessNumber;
+import sk.tsystems.gamestudio.service.CommentService;
+import sk.tsystems.gamestudio.service.RatingService;
 import sk.tsystems.gamestudio.service.ScoreService;
 
 @Controller
@@ -21,16 +25,25 @@ public class GuessNumberController {
 	private int guessNumber;
 	Random random = new Random();
 	private String message;
-
+	private int score;
+	private long startMillis;
+	
 	@Autowired
 	private ScoreService scoreService;
 
 	@Autowired
 	private MainController mainController;
 
+	@Autowired
+	private CommentService commentService;
+	
+	@Autowired
+	private RatingService ratingService;
+	
 	@RequestMapping("/guessnumber")
 	public String index() {
 		guessNumber = random.nextInt(100) + 1;
+		startMillis = System.currentTimeMillis();
 		return "guessnumber";
 	}
 
@@ -44,16 +57,21 @@ public class GuessNumberController {
 		}
 		return "guessnumber";
 	}
+	
+	@RequestMapping("/guessnumber/comment")
+	public String comment(String content) {
+		if (mainController.isLogged())
+			commentService.addComment(new Comment(mainController.getLoggedPlayer().getName(), "guessnumber", content));
+		return "guessnumber";
+	}
 
-//@RequestMapping("/guessnumber/guess")
-//public String move(int tile) {
-//	field.move(tile);
-//	if(field.isState() && mainController.isLogged()) {
-//		scoreService.addScore(new Score (mainController.getLoggedPlayer().getName(), "puzzle", 10));
-//	} //field.getScore()
-//	return "guessnumber";
-//}
-
+	@RequestMapping("/guessnumber/rate")
+	public String rate(int rating) {
+		if (mainController.isLogged())
+			ratingService.setRating(new Rating(mainController.getLoggedPlayer().getName(), "guessnumber", rating));
+		return "guessnumber";
+	}
+	
 	public String getHtmlField() {
 		Formatter f = new Formatter();
 
@@ -76,6 +94,8 @@ public class GuessNumberController {
 				return "Enter higher number!";
 			}
 			if (number == guessNumber) {
+				if (mainController.isLogged())
+					scoreService.addScore(new Score(mainController.getLoggedPlayer().getName(), "guessnumber", getScore()));
 				return "You won!!!";
 			}
 		} catch (NumberFormatException e) {
@@ -94,15 +114,31 @@ public class GuessNumberController {
 	}
 
 
-//public List<Score> getScore() {
-//	return scoreService.getTopScores("guess");
-//}
-//
-public Number getNumber() {
+	public Number getNumber() {
 	return number;
 }
+	
+	public List<Comment> getComments() {
+		return commentService.getComments("guessnumber");
+
+	}
+	public double getAverageRating () {
+		double rating = 0;
+		try {
+			rating = ratingService.getAverageRating("guessnumber");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return rating;
+	}
+	
+	public int getPlayingTime() {
+		return (int) (System.currentTimeMillis() - startMillis) / 1000;
+	}
+
+	public int getScore() {
+		 score = 10000 - getPlayingTime();
+		 return score;
+	}
 }
-//
-//public void setNumber(Number number) {
-//	this.number = number;
-//}
+

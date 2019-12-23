@@ -14,33 +14,101 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 	
-<link rel="stylesheet" href="/guessNumber/guess.css">
+<link rel="stylesheet" href="/css/guessNumber/guess.css">
 <title>Guess the Number</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Guess the Number</h1>
-	<a href="/guessnumber">New game</a>
-		<br/>
-	<div th:if="${not @mainController.logged}"></div>
-		You are not logged. Please, log in.
-	<div th:if="${@mainController.logged}">
-		You are logged as <span th:text="${@mainController.loggedPlayer.name}"></span>
+	<div class="container">
+		<div class="row guessnumber">
+		<section class="col-2 log">
+			<div th:if="${not @mainController.logged}">
+				You are not logged. Please, <a href="/">log in.</a></div>
+				<div th:if="${@mainController.logged}">
+				You are logged as <span th:text="${@mainController.loggedPlayer.name}"></span>
+				</div>
+		</section>
+		<section class="col-8 game">
+			<h1 class="text-center">Guess the number</h1>
+			<div class="text-center"><a href="/guessnumber">New game</a></div>
+			<br/>
+		</section>
+		<section class="col-2 menu">
+			<p>Back to <a href="/">main page.</a></p>
+		</section>
+		</div>
 	</div>
-	<h3>Enter number from 1 to 100.</h3>
-	<div th:if="${not @guessNumberController.solved}">
-		<div th:utext="${@guessNumberController.htmlField}"></div>
+	<div class="container">
+		<div class="row field">
+			<section class="col-6 gameguess">
+			<div th:if="${not @guessNumberController.solved}">
+				<h3>Enter number from 1 to 100.</h3>
+				<div th:utext="${@guessNumberController.htmlField}"></div>
+			</div>
+			<div th:if="${@guessNumberController.number!=0}">
+				<div class="message" th:text="${@guessNumberController.message}"></div>
+			</div>
+			<div th:if="${@guessNumberController.solved}">
+			Ou!You know my secret number!<br/></div>
+			</section>
+			<section class="col-6">
+			<div class="imgguess"><img class="guess" src="images/guess/guess.jpg"/></div>
+			</section>
+		</div>
 	</div>
-	<div th:if="${@guessNumberController.number!=0}"><div th:text="${@guessNumberController.message}"></div></div>
-	<h3>Scores</h3>
-	<ol>
-	<li th:each="score : ${@guessNumberController.scores}">
-	<span th:text="${score.ident}"></span>
-	<span th:text="${score.username}"></span>
-	<span th:text="${score.value}"></span>
-	<span th:text="${score.game}"></span>
-	</li>
-	</ol>
-	
+	<div class="container">
+		<div class="row foot">
+			<section class="col-4 score">
+				<div th:if="${not @mainController.logged}">
+				If you want to store your score, you must to be logged. <a href="/">Log in.</a></div>
+				<h3>Scores</h3>
+				<ol>
+					<li th:each="score : ${@guessNumberController.scores}">
+						<span th:text="${score.username}"></span>
+						<span th:text="${score.value}"></span>
+						<span th:text="${score.game}"></span>
+					</li>
+				</ol>
+			</section>
+			<section class="col-4 comments">
+				<div th:if="${not @mainController.logged}">
+				If you want to leave a comment, you must to be logged. <a href="/">Log in.</a></div>
+				<h3>Comments</h3>
+				<ol>
+					<li th:each="comment : ${@guessNumberController.comments}">
+						<span th:text="${comment.username}"></span>
+						<span th:text="${comment.game}"></span>
+						<span th:text="${comment.content}"></span>
+					</li>
+				</ol>
+				<div th:if="${@mainController.logged}">
+					<form action="/guessnumber/comment">
+						<div class="form-group">
+			   			<input type="text" name="content" class="form-control">
+		  				</div>
+		  				<button type="submit" class="btn btn-outline-secondary">Add</button>
+     				</form>
+     			</div>
+     		</section>
+     		<section class="col-4 rating">
+     			<div th:if="${not @mainController.logged}">
+					Do you want to rate a game? You must to be logged. <a href="/">Log in.</a></div>
+				<h3>Rating</h3>
+				<div th:text="${@guessNumberController.averageRating}"></div>
+				<div th:if="${@mainController.logged}">
+					<form action="/guessnumber/rate">
+						<div class="form-group">
+							<input type="radio" name="rating" id="1" value="1">
+							<input type="radio" name="rating" id="2" value="2">
+							<input type="radio" name="rating" id="3" value="3">
+							<input type="radio" name="rating" id="4" value="4">
+							<input type="radio" name="rating" id="5" value="5">
+		  					<button type="submit" class="btn btn-outline-secondary">Rate</button>
+		  				</div>
+     				</form>
+     			</div>
+     		</section>
+     		</div>
+     		</div>
 </body>
 </html>

@@ -9,12 +9,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
+import sk.tsystems.gamestudio.entity.Comment;
+import sk.tsystems.gamestudio.entity.Rating;
 import sk.tsystems.gamestudio.entity.Score;
 import sk.tsystems.gamestudio.game.minesweeper.core.Clue;
 import sk.tsystems.gamestudio.game.minesweeper.core.Field;
 import sk.tsystems.gamestudio.game.minesweeper.core.GameState;
 import sk.tsystems.gamestudio.game.minesweeper.core.Mine;
 import sk.tsystems.gamestudio.game.minesweeper.core.Tile;
+import sk.tsystems.gamestudio.service.CommentService;
+import sk.tsystems.gamestudio.service.RatingService;
 import sk.tsystems.gamestudio.service.ScoreService;
 
 @Controller
@@ -25,7 +29,24 @@ public class MinesweeperController {
 	private boolean marking;
 	
 	@Autowired
-	ScoreService scoreService;
+	private ScoreService scoreService;
+	
+	@Autowired
+	private MainController mainController;
+	
+	@Autowired
+	private RatingService ratingService;
+	
+	@Autowired
+	private CommentService commentService;
+	
+	private String message;
+	
+	private int score;
+
+	public String getMessage() {
+		return message;
+	}
 	
 	@RequestMapping("/minesweeper")
 	public String index() {
@@ -35,17 +56,34 @@ public class MinesweeperController {
 
 	@RequestMapping("/minesweeper/action")
 	public String action(int row, int column) {
-		if (field.getState() == GameState.PLAYING)
+		if (field.getState() == GameState.PLAYING) {
 			if (marking)
 				field.markTile(row, column);
 			else
 				field.openTile(row, column);
-		return "minesweeper";
 	}
-
+	if (field.getState() == GameState.SOLVED && mainController.isLogged()) {
+		scoreService.addScore(new Score(mainController.getLoggedPlayer().getName(), "minesweeper", field.getScore()));
+	} return "minesweeper";
+	}
+	
 	@RequestMapping("/minesweeper/change")
 	public String change() {
 		marking = !marking;
+		return "minesweeper";
+	}
+	
+	@RequestMapping("/minesweeper/comment")
+	public String comment(String content) {
+		if (mainController.isLogged())
+			commentService.addComment(new Comment(mainController.getLoggedPlayer().getName(), "minesweeper", content));
+		return "minesweeper";
+	}
+	
+	@RequestMapping("/minesweeper/rate")
+	public String rate(int rating) {
+		if (mainController.isLogged())
+			ratingService.setRating(new Rating(mainController.getLoggedPlayer().getName(), "minesweeper", rating));
 		return "minesweeper";
 	}
 
@@ -98,5 +136,18 @@ public class MinesweeperController {
 	
 	public boolean isSolved() {
 		return field.getState() == GameState.SOLVED;
+	}
+	public List<Comment> getComments() {
+		return commentService.getComments("minesweeper");
+
+	}
+	public double getAverageRating () {
+		double rating = 0;
+		try {
+			rating = ratingService.getAverageRating("minesweeper");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return rating;
 	}
 }
