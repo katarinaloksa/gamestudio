@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+<!-- Bootstrap CSS -->
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+	
+<link rel="stylesheet" href="/puzzle/puzzle.style.css">
+<title>Puzzle</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Puzzle</h1>
+	<a href="/puzzle">New game</a>
+	<br/>
+	<div th:if="${not @mainController.logged}">
+	You are not logged. Please, log in.</div>
+	<div th:if="${@mainController.logged}">
+	You are logged as <span th:text="${@mainController.loggedPlayer.name}"></span>
+	</div>
+	<div th:if="${@puzzleController.solved}">
+		You've solved the Puzzle!<br/>
+	</div>
+
+	<div th:if="${not @puzzleController.solved}">
+		<div th:utext="${@puzzleController.htmlField}"></div>
+	</div>
+	<img src="/images/puzzle/puzzle.jpg" />
+	<h3>Scores</h3>
+	<ol>
+	<li th:each="score : ${@puzzleController.scores}">
+		<span th:text="${score.ident}"></span>
+		<span th:text="${score.username}"></span>
+		<span th:text="${score.value}"></span>
+		<span th:text="${score.game}"></span>
+	</li>
+	</ol>
+	<div th:if="${not @mainController.logged}">
+	If you want to leave a comment, you must to be logged. <a href="/">Sign in.</a></div>
+	<h3>Comments</h3>
+	<ol>
+	<li th:each="comment : ${@puzzleController.comments}">
+		<span th:text="${comment.username}"></span>
+		<span th:text="${comment.game}"></span>
+		<span th:text="${comment.content}"></span>
+	</li>
+	</ol>
+	<div th:if="${@mainController.logged}">
+	<form action="/puzzle/comment">
+		<div class="form-group">
+			   <input type="text" name="content" class="form-control">
+		  </div>
+		  	<button type="submit" class="btn btn-outline-secondary">Add</button>
+     </form>
+     </div>
+     <div th:if="${not @mainController.logged}">
+	Do you want to rate a game? You must to be logged. <a href="/">Sign in.</a></div>
+	<div th:text="${@puzzleController.averageRating}"></div>
+	<div th:if="${@mainController.logged}">
+		<form action="/puzzle/rate">
+			<div class="form-group">
+			<input type="radio" name="rating" id="1" value="1">
+			<input type="radio" name="rating" id="2" value="2">
+			<input type="radio" name="rating" id="3" value="3">
+			<input type="radio" name="rating" id="4" value="4">
+			<input type="radio" name="rating" id="5" value="5">
+		  	<button type="submit" class="btn btn-outline-secondary">Rate</button>
+		  		</div>
+     	</form>
+     </div>
+	
+</body>
+</html>

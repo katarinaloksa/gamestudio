@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+<!-- Bootstrap CSS -->
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+	
+<link rel="stylesheet" href="/guessNumber/guess.css">
+<title>Guess the Number</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Guess the Number</h1>
+	<a href="/guessnumber">New game</a>
+		<br/>
+	<div th:if="${not @mainController.logged}"></div>
+		You are not logged. Please, log in.
+	<div th:if="${@mainController.logged}">
+		You are logged as <span th:text="${@mainController.loggedPlayer.name}"></span>
+	</div>
+	<h3>Enter number from 1 to 100.</h3>
+	<div th:if="${not @guessNumberController.solved}">
+		<div th:utext="${@guessNumberController.htmlField}"></div>
+	</div>
+	<div th:if="${@guessNumberController.number!=0}"><div th:text="${@guessNumberController.message}"></div></div>
+	<h3>Scores</h3>
+	<ol>
+	<li th:each="score : ${@guessNumberController.scores}">
+	<span th:text="${score.ident}"></span>
+	<span th:text="${score.username}"></span>
+	<span th:text="${score.value}"></span>
+	<span th:text="${score.game}"></span>
+	</li>
+	</ol>
+	
+</body>
+</html>

@@ -1,0 +1,74 @@
+@font-face {
+  font-family: 'Chalkduster';
+  src: url('/fonts/Chalkduster.ttf');
+}
+body {
+	background-color: #1a202c;
+}
+.puzzle {
+  background-color: #718096;
+}
+.minesweeper {
+	background-color: #4a5568;
+}
+.number {
+	background-color: #2d3748;
+}
+
+h3{
+	text-align: center;
+	color:white;
+}
+.center {
+	margin: 0 auto;
+}
+.game {
+	border:thin solid black;
+	width: 650px;
+	
+}
+.welcome {
+	position: absolute;
+	bottom:100px;
+	right: 160px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+h3 {
+	margin: 50px 5px 50px 5px; 
+	font-family: Georgia;
+	text-shadow: 1px 1px 2px white, 0 0 1em magenta, 0 0 0.2em magenta;
+}
+
+.welcome h1{
+	font-size: 70px;
+	font-family: 'Chalkduster';
+	font-style: italic;
+	color: magenta;
+}
+ul {
+	list-style: none;
+}
+li {
+	color: white;
+	font-size: 15px;
+}
+.mines img {
+	width: 300px;
+}
+.tsystems img {
+	width: 200px;
+}
+.log {
+	color: #f7fafc;
+	font-family: Georgia;
+	font-size: 15px;
+}
+.regist {
+	margin-top: 10px
+}
+.sponsor {
+	color: #f7fafc;
+	font-family: Georgia;
+	font-size: 15px;
+}

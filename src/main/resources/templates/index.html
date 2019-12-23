@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ <!-- Required meta tags -->
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+            <!-- Bootstrap CSS -->
+        
+            <link rel="stylesheet" 
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/index.css">
+<title>Gamestudio</title>
+</head>
+<body>
+	<div class="container">
+		<div class="row mt-5">
+			<section class="col-2 log">
+				<div th:if="${not @mainController.logged}">
+					You are not logged. Please, log in.</br>
+					<form action="/login">
+		  				<div class="form-group">
+			    			<label for="user">User name:</label>
+			    			<input type="text" name="name" class="form-control" id="user">
+		    			</div>
+		  			<div class="form-group">
+		    			<label for="password">Password:</label>
+		    			<input type="password" name="passwd" class="form-control" id="password">
+		  			</div>
+		  				<button type="submit" class="btn btn-outline-secondary">Submit</button>
+      				</form>
+				</div>
+				<div><p class="regist">If you are not registered, you can register <a href="/registration">here.</a></p></div>
+			<div th:if="${@mainController.logged}">
+				You are logged as <span th:text="${@mainController.loggedPlayer.name}"/>
+				<a href="/logout">Logout</a></br>
+			</div>
+			</section>
+			<section>
+		<div class="col-8 picture">
+		<div class="center"><img class="game" src="images/page/game.jpg"/></div>
+		<div class="welcome"><h1>Welcome to Game Studio</h1></div>
+		</div>
+		</section>
+			<section>
+				<div class="col-2 sponsor">
+					<p class="sponsor">Main sponsor:</p>
+					<div class="tsystems"><img class="tsystems" src="images/page/tsystems.jpg"/></div>
+				</div>
+			</section>
+		</div>
+		</div>
+		<div class="container">
+		<h3>Select your favourite game:</h3>
+		<div class="row">
+		<section class="col-4 puzzle">
+		<ul><li><a href="/puzzle">Puzzle</a></li></ul>
+		</section>
+		<section class="col-4 minesweeper">
+		<ul><li><a href="/minesweeper">Minesweeper</a></li></ul>
+		<p>text</p>
+		<div class="mines"><img class="picMines" src="images/page/picMines.jpg"/></div>
+		</section>
+		<section class="col-4 number">
+		<ul><li><a href="/guessnumber">Guess_number</a></li></ul>
+		</section>
+	</div>
+	</div>
+</body>
+</html>
+
