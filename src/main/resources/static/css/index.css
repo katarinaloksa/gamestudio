@@ -3,28 +3,30 @@
   src: url('/fonts/Chalkduster.ttf');
 }
 body {
-	background-color: #1a202c;
+	background-color: #D3D3D3;
 }
 .puzzle {
-  background-color: #718096;
+  background-color: #C8C8C8;
 }
 .minesweeper {
-	background-color: #4a5568;
+	background-color: #C0C0C0;
 }
 .number {
-	background-color: #2d3748;
+	background-color: #B8B8B8;
 }
 
 h3{
 	text-align: center;
-	color:white;
+	color:#282828;
 }
 .center {
 	margin: 0 auto;
 }
 .game {
 	border:thin solid black;
-	width: 650px;
+	border-radius: 1%;
+	max-width: 650px;
+	height: auto;
 	
 }
 .welcome {
@@ -37,7 +39,7 @@ h3{
 h3 {
 	margin: 50px 5px 50px 5px; 
 	font-family: Georgia;
-	text-shadow: 1px 1px 2px white, 0 0 1em magenta, 0 0 0.2em magenta;
+	text-shadow: 1px 1px 2px grey, 0 0 1em magenta, 0 0 0.2em magenta;
 }
 
 .welcome h1{
@@ -54,13 +56,22 @@ li {
 	font-size: 15px;
 }
 .mines img {
-	width: 300px;
+	max-width: 250px;
+	height: auto;
+}
+.guess img {
+	max-width: 170px;
+	height: auto;
+}
+.puzzlepic img {
+	max-width: 170px;
+	height: auto;
 }
 .tsystems img {
 	width: 200px;
 }
 .log {
-	color: #f7fafc;
+	color: black;
 	font-family: Georgia;
 	font-size: 15px;
 }
@@ -68,11 +79,17 @@ li {
 	margin-top: 10px
 }
 .sponsor {
-	color: #f7fafc;
+	color: black;
 	font-family: Georgia;
 	font-size: 15px;
 }
 a {
-	color: white;
+	color: #990099;
 	font-family: Georgia;
+	font-size: 20px;
+}
+.here {
+	color: #990099;
+	font-family: Georgia;
+	font-size: 15px;
 }

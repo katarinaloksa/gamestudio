@@ -1,18 +1,18 @@
 .puzzle {
-background-color: #4a5568;
+background-color: #C8C8C8;
 font-family: Georgia;
 font-size: 15px;
-color: #f7fafc;
+color: black;
 }
 h1 {
-color: magenta;
+color: #990099;
 font-family: Georgia;
 }
 .field {
-background-color: #1a202c;
+background-color: #C8C8C8;
 }
 .foot {
-background-color: #4a5568;
+background-color: #C8C8C8;
 font-family: Georgia;
 }
 h3 {
@@ -20,5 +20,25 @@ color: white;
 font-style: italic;
 }
 body {
-	background-color: #1a202c;
+	background-color: #D3D3D3;
 }
+a {
+	color: #990099;
+	font-family: Georgia;
+}
+.pole th, td {
+	padding: 0;
+} 
+.score, .comment {
+  border-collapse: collapse;
+  border-radius: 1em;
+  overflow: hidden;
+}
+.score th, .score td, .comments th, .comments td {
+  padding: 1em;
+  background: #ddd;
+  border-bottom: 2px solid white; 
+  text-align: left;
+}
+
+

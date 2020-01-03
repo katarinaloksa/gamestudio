@@ -73,7 +73,7 @@ public class PuzzleController {
 	public String getHtmlField() {
 		Formatter f = new Formatter();
 
-		f.format("<table>\n");
+		f.format("<table class=\"pole\">\n");
 		for (int row = 0; row < field.getRowCount(); row++) {
 			f.format("<tr>\n");
 			for (int column = 0; column < field.getColumnCount(); column++) {

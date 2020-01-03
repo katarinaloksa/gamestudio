@@ -13,9 +13,7 @@ import sk.tsystems.gamestudio.service.PlayerService;
 @Scope(WebApplicationContext.SCOPE_SESSION)
 public class RegistrationController {
 	private Player registratedPlayer;
-
-	
-	
+	private String message;
 	
 	@Autowired
 	PlayerService playerService;
@@ -26,14 +24,48 @@ public class RegistrationController {
 	
 	@RequestMapping("/registration")
 	public String index() {
+		message = "";
 		return "registration";
 	}
 	
+	@RequestMapping("/registration/shortname")
+	public String shortName() {
+		return "registration";
+	}
+	
+	@RequestMapping("/registration/shortpasswd")
+	public String shortPasswd() {
+		return "registration";
+	}
+	
+	@RequestMapping("/registration/unavailablename")
+	public String unavailableName() {
+		return "registration";
+	}
+	
+	@SuppressWarnings("unlikely-arg-type")
 	@RequestMapping("/registration/register")
-	public String registration(Player player) {
-		if(player.getName().length()> 2 && player.getPasswd().length() > 4 && playerService.getPlayerName(player.getName()) == null) { 
-			playerService.addUser(new Player(player.getName(), player.getPasswd()));
-			mainController.index(player);}
+	public String registration(Player player) {	
+		
+		try {
+			if(player.getName().length()<= 2) {
+				message = "Username is too short.";
+				return "redirect:/registration/shortname";
+			}
+			else if(player.getPasswd().length() <= 4) {
+				message = "Password is too short.";
+				return "redirect:/registration/shortpasswd";
+			}
+			else if(playerService.getPlayerName(player.getName()) != null) {  
+				message = "This username is unavailable.";
+				return "redirect:/registration/unavailablename";
+			}
+			else if(player.getName().length()> 2 && player.getPasswd().length() > 4 && playerService.getPlayerName(player.getName()) == null) { 
+				playerService.addUser(new Player(player.getName(), player.getPasswd()));
+				mainController.index(player);}
+		} catch (Exception e) {
+		}
+		
 		return "redirect:/";
 	}
 	  
@@ -48,5 +80,10 @@ public class RegistrationController {
 	public void setRegistratedPlayer(Player registratedPlayer) {
 		this.registratedPlayer = registratedPlayer;
 	}
+
+	public String getMessage() {
+		return message;
+	}
+
 
 }

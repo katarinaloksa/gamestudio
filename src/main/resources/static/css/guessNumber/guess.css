@@ -1,27 +1,47 @@
 .guessnumber {
-background-color: #4a5568;
+background-color: #B8B8B8;
 font-family: Georgia;
 font-size: 15px;
-color: #f7fafc;
+color: black;
 }
 h1 {
-color: magenta;
+color:  #990099;
 font-family: Georgia;
 }
 .field {
-background-color: #1a202c;
+background-color: #B8B8B8;
 }
 .foot {
-background-color: #4a5568;
+background-color: #B8B8B8;
 font-family: Georgia;
 }
 h3 {
-color: white;
+color: black;
 font-style: italic;
 }
 body {
-	background-color: #1a202c;
+	background-color: #B8B8B8;
 }
 .message {
-	color: white;
+	color: black;
 }
+a {
+	color: #990099;
+	font-family: Georgia;
+}
+
+table {
+  border-collapse: collapse;
+  border-radius: 1em;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 1em;
+  background: #ddd;
+  border-bottom: 2px solid white; 
+  text-align: left;
+}
+
+	
+	

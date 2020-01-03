@@ -30,8 +30,9 @@
 		  			</div>
 		  				<button type="submit" class="btn btn-outline-secondary">Submit</button>
       				</form>
+      			<div th:text="${@mainController.message}"></div>
 				</div>
-				<div><p class="regist">If you are not registered, you can register <a href="/registration">here.</a></p></div>
+				<div><p class="regist">If you are not registered, you can register <a class="here" href="/registration">here.</a></p></div>
 			<div th:if="${@mainController.logged}">
 				You are logged as <span th:text="${@mainController.loggedPlayer.name}"/>
 				<a href="/logout">Logout</a></br>
@@ -63,7 +64,7 @@
 		<div class="mines"><img class="picMines" src="images/page/picMines.jpg"/></div>
 		</section>
 		<section class="col-4 number">
-		<ul><li><a href="/guessnumber">Guess_number</a></li></ul>
+		<ul><li><a href="/guessnumber">Guess number</a></li></ul>
 		<div class="guess"><img class="picguess" src="images/page/guessnumber.jpg"/></div>
 		
 		</section>

@@ -41,7 +41,7 @@
 	<div class="container">
 	<div class="row field">
 		<div th:if="${not @puzzleController.solved}">
-			<div th:utext="${@puzzleController.htmlField}"></div>
+			<div class="col-6" th:utext="${@puzzleController.htmlField}"></div>
 		</div>
 		<div th:if="${@puzzleController.solved}">
 			You've solved the Puzzle!<br/></div>
@@ -54,25 +54,46 @@
 				<div th:if="${not @mainController.logged}">
 				If you want to store your score, you must to be logged. <a href="/">Log in.</a></div>
 				<h3>Scores</h3>
-				<ol>
-					<li th:each="score : ${@puzzleController.scores}">
-						<span th:text="${score.username}"></span>
-						<span th:text="${score.value}"></span>
-						<span th:text="${score.game}"></span>
-					</li>
-				</ol>
+
+				<table class="  score table-responsive">
+					<thead>
+						<tr>
+						<th>Username</th>
+						<th>Score</th>
+						<th>Game</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr th:each="score : ${@puzzleController.scores}">
+						<td><span th:text="${score.username}"></span></td>
+						<td><span th:text="${score.value}"></span></td>
+						<td><span th:text="${score.game}"></span></td>
+					</tr>
+				</tbody>
+				</table>
 			</section>
 			<section class="col-4 comments">
 				<div th:if="${not @mainController.logged}">
 				If you want to leave a comment, you must to be logged. <a href="/">Log in.</a></div>
 				<h3>Comments</h3>
-				<ol>
-					<li th:each="comment : ${@puzzleController.comments}">
-						<span th:text="${comment.username}"></span>
-						<span th:text="${comment.game}"></span>
-						<span th:text="${comment.content}"></span>
-					</li>
-				</ol>
+				
+				<table class="comments table-responsive">
+					<thead>
+						<tr>
+						<th>Username</th>
+						<th>Game</th>
+						<th>Comment</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr th:each="comment : ${@puzzleController.comments}">
+						<td><span th:text="${comment.username}"></span></td>
+						<td><span th:text="${comment.game}"></span></td>
+						<td><span th:text="${comment.content}"></span></td>
+					</tr>
+				</tbody>
+				</table>
+				
 				<div th:if="${@mainController.logged}">
 					<form action="/puzzle/comment">
 						<div class="form-group">

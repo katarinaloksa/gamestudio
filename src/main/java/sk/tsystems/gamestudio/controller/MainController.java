@@ -13,19 +13,36 @@ import sk.tsystems.gamestudio.service.PlayerService;
 @Scope(WebApplicationContext.SCOPE_SESSION)
 public class MainController {
 	private Player loggedPlayer;
+	private String message;
 	
 	@Autowired
 	private PlayerService playerService;
 	
 	@RequestMapping("/")
 	public String index() {
+		message = "";
 		return "index";
 	}
 	
+	@RequestMapping("/wronglogin")
+	public String wrongLogin() {
+		return "index";
+	}
 	@RequestMapping("/login")
 	public String index(Player player) {
-		if(playerService.getPlayerName(player.getName()).getPasswd().equals(player.getPasswd())) {
-			loggedPlayer = player;
+		try {
+			if(playerService.getPlayerName(player.getName()).getPasswd().equals(player.getPasswd())) {
+				loggedPlayer = player;
+			}
+			else {
+				message = "Wrong username or password.";
+				return "redirect:/wronglogin"; 
+				}
+		} catch (Exception e) {
+			message = "Wrong username or password.";
+			return "redirect:/wronglogin"; 
+			// TODO Auto-generated catch block
+			
 		}
 	return "redirect:/"; 
 }
@@ -40,5 +57,9 @@ public class MainController {
 	}
 	public Player getLoggedPlayer() {
 		return loggedPlayer;
+	}
+
+	public String getMessage() {
+		return message;
 	}
 }
