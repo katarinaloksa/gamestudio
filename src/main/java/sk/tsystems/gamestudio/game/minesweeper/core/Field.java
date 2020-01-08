@@ -100,7 +100,7 @@ public class Field {
 		if (tile.getState() == Tile.State.CLOSED) {
 			tile.setState(Tile.State.MARKED);
 		}
-		if (tile.getState() == Tile.State.MARKED) {
+		else if (tile.getState() == Tile.State.MARKED) {
 			tile.setState(Tile.State.CLOSED);
 		}
 		// throw new UnsupportedOperationException("Method markTile not yet

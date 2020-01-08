@@ -60,7 +60,7 @@ public class RegistrationController {
 				message = "This username is unavailable.";
 				return "redirect:/registration/unavailablename";
 			}
-			else if(player.getName().length()> 2 && player.getPasswd().length() > 4 && playerService.getPlayerName(player.getName()) == null) { 
+			else if(player.getName().trim().length()> 2 && player.getPasswd().length() > 4 && playerService.getPlayerName(player.getName()) == null) { 
 				playerService.addUser(new Player(player.getName(), player.getPasswd()));
 				mainController.index(player);}
 		} catch (Exception e) {

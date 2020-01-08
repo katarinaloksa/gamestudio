@@ -75,22 +75,28 @@ public class MinesweeperController {
 	
 	@RequestMapping("/minesweeper/comment")
 	public String comment(String content) {
-		if (mainController.isLogged())
-			commentService.addComment(new Comment(mainController.getLoggedPlayer().getName(), "minesweeper", content));
+		try {
+			if (content.trim().length() > 0 && content.trim().length() < 256) {
+			if (mainController.isLogged())
+				commentService.addComment(new Comment(mainController.getLoggedPlayer().getName(), "minesweeper", content));}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "minesweeper";
 	}
 	
 	@RequestMapping("/minesweeper/rate")
 	public String rate(int rating) {
+		if (rating>0 && rating<6) {
 		if (mainController.isLogged())
-			ratingService.setRating(new Rating(mainController.getLoggedPlayer().getName(), "minesweeper", rating));
+			ratingService.setRating(new Rating(mainController.getLoggedPlayer().getName(), "minesweeper", rating));}
 		return "minesweeper";
 	}
 
 	public String getHtmlField() {
 		Formatter f = new Formatter();
 
-		f.format("<table>\n");
+		f.format("<table class=\"pole\">\n");
 		for (int row = 0; row < field.getRowCount(); row++) {
 			f.format("<tr>\n");
 			for (int column = 0; column < field.getColumnCount(); column++) {

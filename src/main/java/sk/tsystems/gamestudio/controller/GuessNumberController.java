@@ -60,15 +60,21 @@ public class GuessNumberController {
 	
 	@RequestMapping("/guessnumber/comment")
 	public String comment(String content) {
-		if (mainController.isLogged())
-			commentService.addComment(new Comment(mainController.getLoggedPlayer().getName(), "guessnumber", content));
+		try {
+			if (content.trim().length() > 0 && content.trim().length() < 256) {
+			if (mainController.isLogged())
+				commentService.addComment(new Comment(mainController.getLoggedPlayer().getName(), "guessnumber", content)); }
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
 		return "guessnumber";
 	}
 
 	@RequestMapping("/guessnumber/rate")
 	public String rate(int rating) {
+		if (rating>0 && rating<6) {
 		if (mainController.isLogged())
-			ratingService.setRating(new Rating(mainController.getLoggedPlayer().getName(), "guessnumber", rating));
+			ratingService.setRating(new Rating(mainController.getLoggedPlayer().getName(), "guessnumber", rating));}
 		return "guessnumber";
 	}
 	
@@ -77,8 +83,8 @@ public class GuessNumberController {
 
 		f.format("<table>\n");
 		f.format("<form action=\"/guessnumber/guess\">");
-		f.format("<input type=\"number\" name=\"number\"><br>");
-		f.format("<input type=\"submit\" value=\"Submit\">");
+		f.format("<input class=\"num\" type=\"number\" name=\"number\" autofocus><br>");
+		f.format("<input class=\"sub\" type=\"submit\" value=\"Submit\">");
 		f.format("</form>");
 		f.format("</table>\n");
 		return f.toString();
@@ -87,6 +93,9 @@ public class GuessNumberController {
 
 	public String getMessage() {
 		try {
+			if (number < 1 || number > 100) {
+				return "Enter number from 1 to 100!!!";
+			}
 			if (number > guessNumber) {
 				return "Enter lower number!";
 			}

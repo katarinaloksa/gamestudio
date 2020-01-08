@@ -35,14 +35,23 @@
 		</section>
 		<section class="col-2 menu">
 			<p>Back to <a href="/">main page.</a></p>
+			<div class="dropdown">
+  		<button class="btn btn-outline-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    		Select game
+  		</button>
+  		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    	<a class="dropdown-item" href="/minesweeper">Minesweeper</a>
+    	<a class="dropdown-item" href="/puzzle">Puzzle</a>
+  		</div>
+	</div>
 		</section>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row field">
-			<section class="col-6 gameguess">
+			<section class="col-12 gameguess">
 			<div th:if="${not @guessNumberController.solved}">
-				<h3>Enter number from 1 to 100.</h3>
+				<h3 class="enter">Enter number from 1 to 100.</h3>
 				<div th:utext="${@guessNumberController.htmlField}"></div>
 			</div>
 			<div th:if="${@guessNumberController.number!=0}">
@@ -51,16 +60,13 @@
 			<div th:if="${@guessNumberController.solved}">
 			Ou!You know my secret number!<br/></div>
 			</section>
-			<section class="col-6">
-			<div class="imgguess"><img class="guess" src="images/guess/guess.jpg"/></div>
-			</section>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row foot">
 			<section class="col-4 score">
 				<div th:if="${not @mainController.logged}">
-				If you want to store your score, you must to be logged. <a href="/">Log in.</a></div>
+				If you want to store your score, you must be logged. <a href="/">Log in.</a></div>
 				<h3>Scores</h3>
 				<div class="table-responsive">
 				<table>
@@ -83,8 +89,8 @@
 			</section>
 			<section class="col-4 comments">
 				<div th:if="${not @mainController.logged}">
-				If you want to leave a comment, you must to be logged. <a href="/">Log in.</a></div>
-				<h3>Comments</h3>
+				If you want to leave a comment, you must be logged. <a href="/">Log in.</a></div>
+				<h3>Comments <span class="max">(max 255 characters)</span></h3>
 				<div class="table-responsive">
 				<table>
 					<thead>
@@ -114,17 +120,17 @@
      		</section>
      		<section class="col-4 rating">
      			<div th:if="${not @mainController.logged}">
-					Do you want to rate a game? You must to be logged. <a href="/">Log in.</a></div>
+					Do you want to rate a game? You must be logged. <a href="/">Log in.</a></div>
 				<h3>Rating</h3>
 				<div th:text="${@guessNumberController.averageRating}"></div>
 				<div th:if="${@mainController.logged}">
 					<form action="/guessnumber/rate">
 						<div class="form-group">
-							<input type="radio" name="rating" id="1" value="1">
-							<input type="radio" name="rating" id="2" value="2">
-							<input type="radio" name="rating" id="3" value="3">
-							<input type="radio" name="rating" id="4" value="4">
-							<input type="radio" name="rating" id="5" value="5">
+							<input type="radio" name="rating" id="1" value="1"><label for="1">1</label>
+							<input type="radio" name="rating" id="2" value="2"><label for="2">2</label>
+							<input type="radio" name="rating" id="3" value="3"><label for="3">3</label>
+							<input type="radio" name="rating" id="4" value="4"><label for="4">4</label>
+							<input type="radio" name="rating" id="5" value="5"><label for="5">5</label>
 		  					<button type="submit" class="btn btn-outline-secondary">Rate</button>
 		  				</div>
      				</form>
@@ -132,5 +138,8 @@
      		</section>
      		</div>
      		</div>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>

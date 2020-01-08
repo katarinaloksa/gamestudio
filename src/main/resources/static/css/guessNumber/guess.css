@@ -1,8 +1,9 @@
 .guessnumber {
 background-color: #B8B8B8;
 font-family: Georgia;
-font-size: 15px;
+font-size: 0.9375em;
 color: black;
+margin: 1.875em 0 0 0;
 }
 h1 {
 color:  #990099;
@@ -10,14 +11,19 @@ font-family: Georgia;
 }
 .field {
 background-color: #B8B8B8;
+margin: 0.3125em 0 1.25em 0;
 }
 .foot {
 background-color: #B8B8B8;
 font-family: Georgia;
 }
 h3 {
-color: black;
+color: white;
 font-style: italic;
+margin: 0.9375em 0;
+}
+.enter {
+	color: black;
 }
 body {
 	background-color: #B8B8B8;
@@ -32,16 +38,31 @@ a {
 
 table {
   border-collapse: collapse;
-  border-radius: 1em;
   overflow: hidden;
+}
+.gameguess {
+	 text-align: center;
+	 margin: 3.125em 0 3.125em 0;
 }
 
 th, td {
   padding: 1em;
   background: #ddd;
-  border-bottom: 2px solid white; 
+  border-bottom: 0.125em solid white; 
   text-align: left;
 }
-
+.sub {
+	border-radius: 0.25em;
+	background-color: #ddd;
+	color: black;
+	margin: 0.9375em 0 1.25em 0;
 	
+}
+.num {
+	border-radius: 0.25em;
+	margin: 1.875em 0 1.25em 0;
+}
+.max {
+	font-size: .6em;
+}	
 	

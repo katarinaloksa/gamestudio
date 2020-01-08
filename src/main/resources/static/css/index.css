@@ -25,71 +25,87 @@ h3{
 .game {
 	border:thin solid black;
 	border-radius: 1%;
-	max-width: 650px;
+	max-width: 40.625em;
 	height: auto;
 	
 }
-.welcome {
-	position: absolute;
-	bottom:100px;
-	right: 160px;
-	padding-left: 20px;
-	padding-right: 20px;
-}
 h3 {
-	margin: 50px 5px 50px 5px; 
+	margin: 1.5em 0.3125em 3.125em 0.3125em; 
 	font-family: Georgia;
-	text-shadow: 1px 1px 2px grey, 0 0 1em magenta, 0 0 0.2em magenta;
+	text-shadow: 0.0625em 0.0625em 0.125em grey, 0 0 1em magenta, 0 0 0.2em magenta;
 }
 
 .welcome h1{
-	font-size: 70px;
+	
 	font-family: 'Chalkduster';
 	font-style: italic;
-	color: magenta;
+	color: #990099;
+	text-align: center;
+	margin: 1.5em auto 0 auto;
 }
 ul {
 	list-style: none;
+	text-align: center;
 }
 li {
 	color: white;
-	font-size: 15px;
+	font-size: 0.9375em;
 }
 .mines img {
-	max-width: 250px;
+	width: 15.625em;
 	height: auto;
 }
 .guess img {
-	max-width: 170px;
+	width: 10.625em;
 	height: auto;
 }
 .puzzlepic img {
-	max-width: 170px;
+	width: 10.625em;
 	height: auto;
 }
 .tsystems img {
-	width: 200px;
+	width: 12.5em;
 }
 .log {
 	color: black;
 	font-family: Georgia;
-	font-size: 15px;
+	font-size: 0.9375em;
 }
 .regist {
-	margin-top: 10px
+	margin-top: 0.625em;
 }
 .sponsor {
 	color: black;
 	font-family: Georgia;
-	font-size: 15px;
+	font-size: 0.9375em;
 }
 a {
 	color: #990099;
 	font-family: Georgia;
-	font-size: 20px;
+	font-size: 1.25em;
 }
 .here {
 	color: #990099;
 	font-family: Georgia;
-	font-size: 15px;
+	font-size: 0.9375em;
 }
+.logout {
+	font-size: 0.9375em;
+}
+.picguess {
+	display: inline-block;
+}
+.guess {
+	margin: 0 auto;
+}
+
+/*MEDIA QUERIES */
+
+@media (max-width: 800px){
+	.game{
+	width: 350px;
+	}
+	.pisguess
+}
+
+

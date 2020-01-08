@@ -49,15 +49,21 @@ public class PuzzleController {
 
 	@RequestMapping("/puzzle/comment")
 	public String comment(String content) {
-		if (mainController.isLogged())
-			commentService.addComment(new Comment(mainController.getLoggedPlayer().getName(), "puzzle", content));
+		try {
+			if (content.trim().length() > 0 && content.trim().length() < 256) {
+			if (mainController.isLogged())
+				commentService.addComment(new Comment(mainController.getLoggedPlayer().getName(), "puzzle", content)); }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "puzzle";
 	}
 
 	@RequestMapping("/puzzle/rate")
 	public String rate(int rating) {
+		if (rating>0 && rating<6) {
 		if (mainController.isLogged())
-			ratingService.setRating(new Rating(mainController.getLoggedPlayer().getName(), "puzzle", rating));
+			ratingService.setRating(new Rating(mainController.getLoggedPlayer().getName(), "puzzle", rating));}
 		return "puzzle";
 	}
 
